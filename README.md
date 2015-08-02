@@ -9,7 +9,7 @@ a jar for ClojureScript.
 Via Leiningen:
 
 ``` clojure
-[com.gfredericks/goog-integer "0.1.0"]
+[com.gfredericks/goog-integer "1.0.0"]
 ```
 
 ## Usage

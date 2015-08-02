@@ -1,4 +1,4 @@
-(defproject com.gfredericks/goog-integer "1.0.0-SNAPSHOT"
+(defproject com.gfredericks/goog-integer "1.0.0"
   :description "Temporary fork of goog.math.Integer from the google closure library."
   :url "https://github.com/gfredericks/goog-integer"
   :license {:name "Eclipse Public License"
