@@ -261,7 +261,7 @@ com.gfredericks.goog.math.Integer.prototype.toString = function(opt_radix) {
   var result = '';
   while (true) {
     var remDiv = rem.divide(radixToPower);
-    var intval = rem.subtract(remDiv.multiply(radixToPower)).toInt();
+    var intval = rem.subtract(remDiv.multiply(radixToPower)).toInt() >>> 0;
     var digits = intval.toString(radix);
 
     rem = remDiv;
