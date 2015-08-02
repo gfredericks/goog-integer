@@ -566,6 +566,34 @@ com.gfredericks.goog.math.Integer.carry16_ = function(bits, index) {
   }
 };
 
+/**
+ * Private function; assumes both args are non-negative
+ */
+com.gfredericks.goog.math.Integer.prototype.slowDivide = function(other) {
+  var twoPower = com.gfredericks.goog.math.Integer.ONE;
+  var multiple = other;
+
+  while(multiple.lessThanOrEqual(this)) {
+    twoPower = twoPower.shiftLeft(1);
+    multiple = multiple.shiftLeft(1);
+  }
+  var res = twoPower.shiftRight(1);
+  var total = multiple.shiftRight(1);
+  var total2;
+  /* TODO: can rewrite the loop to avoid having to back up */
+  multiple = multiple.shiftRight(2);
+  twoPower = twoPower.shiftRight(2);
+  while(! multiple.isZero()){
+    total2 = total.add(multiple);
+    if(total2.lessThanOrEqual(this)){
+      res = res.add(twoPower);
+      total = total2;
+    }
+  multiple = multiple.shiftRight(1);
+  twoPower = twoPower.shiftRight(1);
+  }
+  return res;
+}
 
 /**
  * Returns this Integer divided by the given one.
@@ -587,6 +615,13 @@ com.gfredericks.goog.math.Integer.prototype.divide = function(other) {
     }
   } else if (other.isNegative()) {
     return this.divide(other.negate()).negate();
+  }
+
+  // Have to degrade to slowDivide for Very Large Numbers, because
+  // they're out of range for using the floating-point approximation
+  // technique used below.
+  if(this.bits_.length > 30) {
+    return this.slowDivide(other);
   }
 
   // Repeat the following until the remainder is less than other:  find a
