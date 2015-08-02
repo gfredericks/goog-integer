@@ -17,6 +17,12 @@ Via Leiningen:
 Simply replace references to `goog.math.Integer` with
 `com.gfredericks.goog.math.Integer`.
 
+## Development
+
+The bugs fixed in this fork were discovered and the fixes tested using
+the test suite in
+[this library](https://github.com/gfredericks/exact).
+
 ## License
 
 Copyright © 2015 Gary Fredericks
